@@ -1,0 +1,61 @@
+header {
+  height: 75px;
+  width: 100vw;
+  max-width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.452) 0px 3px 5px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-container {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  text-shadow: rgba(156, 156, 156, 0.671) 1px 1px 3px;
+  letter-spacing: 1px;
+  padding: 0 10px;
+}
+
+nav > .link {
+  margin-right: 35px;
+}
+
+.auth-link {
+  margin-left: 35px;
+  border: rgb(77, 194, 248) 3px solid;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: rgba(99, 99, 99, 0.671) 0px 1px 2px;
+}
+
+.link,
+.auth-link {
+  text-decoration: none;
+  color: rgb(77, 194, 248);
+  font-size: 32px;
+  font-weight: 700;
+  transition:color .3s ease-in, background-color .3s ease-in, border-color .3s ease-in;
+}
+
+.auth-link:hover {
+  background-color: rgb(77, 194, 248);
+  color: rgb(255, 207, 75);
+}
+
+.active-link,
+.active-auth-link {
+  color: rgb(255, 207, 75);
+}
+
+.active-auth-link {
+  border: rgb(255, 207, 75) 3px solid;
+}
+
+.active-auth-link:hover {
+  background-color: rgb(255, 207, 75);
+}

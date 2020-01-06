@@ -17,6 +17,10 @@
 - http-proxy-middleware
 - chartJS
 
+- package.json
+  - main: server/index.js
+- setupProxy.js => 4000
+
 ### Routes
 - Home (/)
 - Register (/register)
@@ -32,20 +36,23 @@
   - reset.css
   - index.js
   - Components/
+    - Header/
+      - Header.js
+      - Header.css
     - Home/
       - Home.js
       - Home.css
     - Register/
-      - Register.js
+      - Register.js (state)
       - Register.css
     - Login/
-      - Login.js
+      - Login.js (state)
       - Login.css
     - UserProfile/
-      - UserProfile.js
+      - UserProfile.js (state)
       - UserProfile.css
     - RaceResults/
-      - RaceResults.js
+      - RaceResults.js (state)
       - RaceResults.css
     - Shop/
       - Shop.js
@@ -80,6 +87,7 @@
 - updateUser => /api/update_user/:userId
 - updatePassword => /api/update_password/:userId
 - updateTimes => /api/update_times/:userId
+- deleteUser /api/delete_user/:userId
 
 #### Shop Controller
 TO-DO
@@ -113,3 +121,7 @@ CREATE TABLE results (
 
 ### Shop
 TO-DO
+
+## Notes
+- Store user info on session
+- Store cart items in redux?
