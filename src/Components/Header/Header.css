@@ -31,6 +31,7 @@ nav > .link {
   border-radius: 5px;
   padding: 5px;
   box-shadow: rgba(99, 99, 99, 0.671) 0px 1px 2px;
+  text-shadow: none;
 }
 
 .link,

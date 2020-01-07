@@ -4,8 +4,9 @@ const express = require('express');
 const session = require('express-session');
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const app = express();
+const { register } = require('./controllers/authController');
 
-app.unsubscribe(express.json());
+app.use(express.json());
 
 app.use(session({
   secret: SESSION_SECRET,
@@ -20,5 +21,8 @@ massive(CONNECTION_STRING).then(db => {
   console.log('Connected to database.');
   app.set('db', db)
 });
+
+// Authorization
+app.post('/api/register', register);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));

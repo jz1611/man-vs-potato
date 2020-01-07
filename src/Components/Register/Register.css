@@ -1,5 +1,4 @@
 .register {
-  margin-top: 75px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -14,7 +13,7 @@
 
 .registration-form {
   width: 225px;
-  height: 490px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,13 +28,26 @@
   margin-top: 15px;
 }
 
+.user-input > h2 {
+  margin-bottom: 5px;
+}
+
 .user-input > input,
 .user-input > select {
   width: 175px;
+  height: 25px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: solid rgb(211, 211, 211) 1px;
+}
+
+.user-input > select {
+  width: 183px;
+  height: 27px;
 }
 
 .register-submit {
-  margin: 15px 0;
+  margin: 20px 0;
   font-family: 'Kulim Park', sans-serif;
   color: rgb(77, 194, 248);
   font-size: 32px;
