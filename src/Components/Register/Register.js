@@ -18,6 +18,8 @@ export default class Register extends React.Component {
       newPassword: "",
       newConfirmPass: ""
     }
+
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   register = async () => {

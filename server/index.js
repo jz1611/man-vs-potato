@@ -2,9 +2,10 @@ require('dotenv').config();
 const massive = require('massive');
 const express = require('express');
 const session = require('express-session');
+const checkForSession = require('./middlewares/checkForSession');
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
+const { register, login, logout, getUserSession } = require('./controllers/authController');
 const app = express();
-const { register } = require('./controllers/authController');
 
 app.use(express.json());
 
@@ -16,6 +17,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 14
   }
 }));
+app.use(checkForSession);
 
 massive(CONNECTION_STRING).then(db => {
   console.log('Connected to database.');
@@ -24,5 +26,8 @@ massive(CONNECTION_STRING).then(db => {
 
 // Authorization
 app.post('/api/register', register);
+app.post('/api/login', login);
+app.post('/api/logout', logout);
+app.get('/api/userSession', getUserSession);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
