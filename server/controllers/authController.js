@@ -16,7 +16,10 @@ module.exports = {
         bcrypt.hash(newPassword, salt).then(hashedPassword => {
           db.create_user([newFirst, newLast, newUsername, newEmail, newDOB, newGender, hashedPassword])
           .then(user => {
-            req.session.user.username = user[0].username;
+            req.session.user = {
+              username: user[0].username,
+              id: user[0].user_id
+            };
             res.status(200).send(req.session.user);
           });
         });
@@ -36,7 +39,10 @@ module.exports = {
       .catch(err => console.log(err));
 
       if(matchPasswords) {
-        req.session.user.username = username;
+        req.session.user = {
+          username: foundUser[0].username,
+          id: foundUser[0].user_id
+        };
         res.status(200).send(req.session.user);
       } else {
         res.status(401).send('Incorrect password.');

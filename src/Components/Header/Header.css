@@ -16,17 +16,18 @@ header {
   width: 1000px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   text-shadow: rgba(156, 156, 156, 0.671) 1px 1px 3px;
   letter-spacing: 1px;
   padding: 0 10px;
 }
 
 nav > .link {
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 .auth-link {
-  margin-left: 35px;
+  margin-left: 25px;
   border: rgb(77, 194, 248) 3px solid;
   border-radius: 5px;
   padding: 5px;
@@ -59,4 +60,15 @@ nav > .link {
 
 .active-auth-link:hover {
   background-color: rgb(255, 207, 75);
+}
+
+.logout {
+  font-family: inherit;
+  background-color: white;
+  height: 50px;
+  margin-left: 35px;
+}
+
+.logout:hover {
+  cursor: pointer;
 }

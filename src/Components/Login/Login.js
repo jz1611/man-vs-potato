@@ -1,11 +1,13 @@
 // Dependencies
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { setUser } from '../../redux/reducer';
 
 // CSS
 import './Login.css';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -20,6 +22,7 @@ export default class Login extends React.Component {
     let { username, password } = this.state;
     const user = await axios.post('/api/login', { username, password }).catch(err => alert(err.response.data));
     if(user) {
+      this.props.setUser(user.data);
       this.props.history.push('/profile');
     }
   }
@@ -66,3 +69,13 @@ export default class Login extends React.Component {
     )
   }
 }
+
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
+
+const mapDispatchToProps = {
+  setUser
+}
+
+export default connect(mapReduxStateToProps, mapDispatchToProps)(Login);
