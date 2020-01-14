@@ -12,3 +12,15 @@
   justify-content: center;
   align-items: center;
 }
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 25px 25px;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

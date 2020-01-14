@@ -35,7 +35,7 @@ class Header extends React.Component {
               className='link'
               activeClassName='active-link'>Results</NavLink>
             <NavLink
-              exact to='shop'
+              exact to='/shop'
               className='link'
               activeClassName='active-link'>Shop</NavLink>
           </nav>
@@ -58,9 +58,10 @@ class Header extends React.Component {
                 exact to='/profile'
                 className='link'
                 activeClassName='active-link' >Profile</NavLink>
-              <button
+              <NavLink
+                exact to='/'
                 className='auth-link logout'
-                onClick={this.logout} >Logout</button>
+                onClick={this.logout} >Logout</NavLink>
             </div>
           }
         </div>

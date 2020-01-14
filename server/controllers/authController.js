@@ -4,11 +4,8 @@ module.exports = {
   register: async (req, res, next) => {
     const db = req.app.get('db');
     const { newFirst, newLast, newUsername, newEmail, newDOB, newGender, newPassword } = req.body;
-    const foundUserEmail = await db.select_user_email(newEmail).catch(err => console.log(err));
     const foundUserUsername = await db.select_user_username(newUsername).catch(err => console.log(err));
-    if (foundUserEmail.length) {
-      res.status(409).send('There is already a user with that email.');
-    } else if (foundUserUsername.length) {
+    if (foundUserUsername.length) {
       res.status(409).send('There is already a user with that username.');
     } else {
       const saltRounds = 15;

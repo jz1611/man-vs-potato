@@ -5,7 +5,7 @@ const session = require('express-session');
 const checkForSession = require('./middlewares/checkForSession');
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
-// const { getUserInfo } = require('./controllers/profileController');
+const { getUser, updateUser } = require('./controllers/profileController');
 const app = express();
 
 app.use(express.json());
@@ -32,6 +32,10 @@ app.post('/api/logout', logout);
 app.get('/api/userSession', getUserSession);
 
 // Profile
-// app.get('/api/user_info', getUserInfo);
+app.get('/api/user_info', getUser); //Uses session info to determine which users info
+app.put('/api/update_user', updateUser); // Uses session info to determine which user
+// app.put('/api/update_password/:username', updatePassword);
+// app.put('/api/update_times/:username', updateTimes);
+// app.delete('/api/delete_user/:username', deleteUser);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
