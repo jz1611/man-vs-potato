@@ -45,5 +45,12 @@ module.exports = {
         res.status(200).send('Password updated.');
       });
     });
+  },
+
+  deleteUser: async (req, res, next) => {
+    const db = req.app.get('db');
+    const { id } = req.session.user;
+    db.delete_user(id);
+    res.status(200).send('User deleted.');
   }
 }
