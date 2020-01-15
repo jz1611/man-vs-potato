@@ -22,7 +22,8 @@ class UserProfile extends React.Component {
       editingPassword: false,
       password: "",
       confirmPassword: "",
-      oldPassword: ""
+      oldPassword: "",
+      deletingUser: false
     }
   }
 
@@ -85,6 +86,18 @@ class UserProfile extends React.Component {
     }
   }
 
+  toggleDelete = () => {
+    if(this.state.deletingUser) {
+      this.setState({
+        deletingUser: false
+      });
+    } else {
+      this.setState({
+        deletingUser: true
+      });
+    }
+  }
+
   updateProfile = async () => {
     const { username, firstName, lastName, email, birthday, gender } = this.state;
     await axios
@@ -109,6 +122,15 @@ class UserProfile extends React.Component {
         })
         .catch(err => alert(err.response.data));
     }
+  }
+
+  deleteUser = async () => {
+    await axios
+      .delete('/api/delete_user')
+      .then(res => alert(res.data))
+      .catch(err => console.log(err));
+    this.props.history.push('/');
+    this.props.setUser("");
   }
 
   render() {
@@ -216,7 +238,7 @@ class UserProfile extends React.Component {
                         name="confirmPassword"
                         onChange={e => this.changeHandler(e.target.name, e.target.value)} />
                     </div>
-                    <div className="profile-item">
+                    <div className="profile-item old-password">
                       <h1>Old Password:</h1>
                       <input 
                         type="password"
@@ -228,10 +250,23 @@ class UserProfile extends React.Component {
                     <button
                       className="profile-button yes">Submit Changes</button>
                     <button
-                        className="profile-button no"
-                        onClick={this.editPassword}>Cancel</button>
+                      className="profile-button no"
+                      onClick={this.editPassword}>Cancel</button>
                   </div>
                 </form>
+              </div>
+              :
+              this.state.deletingUser
+              ?
+              <div className="message-container">
+                <h1 className="warning">Deletion is final!</h1>
+                <h1 className="warning">Are you sure you want to proceed?</h1>
+                <button
+                  className="profile-button yes"
+                  onClick={this.toggleDelete}>No, take me back.</button>
+                <button
+                  className="profile-button no"
+                  onClick={this.deleteUser}>Yes, delete my account.</button>
               </div>
               :
               <div>
@@ -275,7 +310,8 @@ class UserProfile extends React.Component {
                     className="profile-button"
                     onClick={this.editPassword}>Change Password</button>
                   <button
-                    className="profile-button no">Delete Account</button>
+                    className="profile-button no"
+                    onClick={this.toggleDelete}>Delete Account</button>
                 </div>
               </div>
           :

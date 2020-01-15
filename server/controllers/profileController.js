@@ -59,7 +59,7 @@ module.exports = {
     const db = req.app.get('db');
     const { id } = req.session.user;
     db.delete_user(id);
-    req.session.user = {};
+    req.session.user = null;
     res.status(200).send('User deleted.');
   }
 }
