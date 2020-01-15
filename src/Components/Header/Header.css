@@ -37,6 +37,8 @@ nav > .link {
 
 .link,
 .auth-link {
+  font-family: inherit;
+  background-color: white;
   text-decoration: none;
   color: rgb(77, 194, 248);
   font-size: 32px;
@@ -47,6 +49,7 @@ nav > .link {
 .auth-link:hover {
   background-color: rgb(77, 194, 248);
   color: rgb(255, 207, 75);
+  cursor: pointer;
 }
 
 .active-link,

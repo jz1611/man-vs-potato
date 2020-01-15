@@ -24,10 +24,10 @@ function App() {
         <Route exact path="/results" component={RaceResults} />
         <Route exact path="/shop" component={Shop} />
       </Switch>
-      <div className="acknowledge">
+      {/* <div className="acknowledge">
         <div className="author">Website by Jeff Zivkovic</div>
         <div className='credit'>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-      </div>
+      </div> */}
     </div>
   );
 }

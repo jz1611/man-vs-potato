@@ -35,7 +35,6 @@ app.get('/api/userSession', getUserSession);
 app.get('/api/user_info', getUser); // Uses session info to determine which users info
 app.put('/api/update_user', updateUser); // Uses session info to determine which user
 app.put('/api/update_password', updatePassword);
-// app.put('/api/update_times/:username', updateTimes);
 app.delete('/api/delete_user', deleteUser);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
