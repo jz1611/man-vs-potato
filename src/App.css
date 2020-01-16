@@ -22,3 +22,9 @@
 a {
   color: rgb(156, 156, 156);
 }
+
+input:focus,
+select:focus {
+  outline: none;
+  border: rgb(77, 194, 248) 1px solid;
+}

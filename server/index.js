@@ -6,6 +6,7 @@ const checkForSession = require('./middlewares/checkForSession');
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
 const { getUser, updateUser, updatePassword, deleteUser } = require('./controllers/profileController');
+const { getBulkResults, searchRunnersOrderByLastName } = require('./controllers/resultsController');
 const app = express();
 
 app.use(express.json());
@@ -36,5 +37,9 @@ app.get('/api/user_info', getUser); // Uses session info to determine which user
 app.put('/api/update_user', updateUser); // Uses session info to determine which user
 app.put('/api/update_password', updatePassword);
 app.delete('/api/delete_user', deleteUser);
+
+// Results
+app.get('/api/bulk_results', getBulkResults);
+app.get('/api/search_runners_order_last', searchRunnersOrderByLastName)
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));

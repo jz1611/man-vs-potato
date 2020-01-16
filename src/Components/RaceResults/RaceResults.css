@@ -1,0 +1,40 @@
+.results-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.results-container {
+  margin-top: 25px;
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.results-title{
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.results-data {
+  margin-bottom: 35px;
+  font-size: 24px;
+}
+
+.bulk-results {
+  width: 300px;
+  /* background-color: blue; */
+}
+
+.search-container {
+  width: 300px;
+  /* background-color: red; */
+}
+
+.search-results {
+  width: 300px;
+  /* background-color: green; */
+}
