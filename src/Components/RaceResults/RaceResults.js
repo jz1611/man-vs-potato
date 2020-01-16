@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import { connect } from 'react-redux';
 
 // CSS
@@ -16,7 +17,9 @@ class RaceResults extends React.Component {
       topFemale: {},
       first_name: "",
       last_name: "",
-      mappedRunners: []
+      mappedRunners: [],
+      start_time: "00:00:00",
+      end_time: "00:00:00"
     }
   }
 
@@ -45,16 +48,52 @@ class RaceResults extends React.Component {
     const foundRunners = await axios.get(`/api/search_runners_order_last?first_name=${first_name}&last_name=${last_name}`).catch(err => console.log(err));
     const mappedRunners = foundRunners.data.map(runner => {
       return (
-        <div key={runner.user_id}>
-          <h1>{runner.first_name}&nbsp;{runner.last_name}</h1>
-          <h2>Age</h2>
-          <h2>Gender</h2>
+        <div
+          className="search-result"
+          key={runner.result_id}>
+          <h1 className="result-name">{runner.first_name}&nbsp;{runner.last_name}</h1>
+          <h2 className="result-time">{runner.total_time}</h2>
+          {
+            runner.gender === 'm'
+            ?
+            <h2 className="result-info">Male</h2>
+            :
+            runner.gender === 'f'
+            ?
+            <h2 className="result-info">Female</h2>
+            :
+            <h2 className="result-info">Other</h2>
+          }
         </div>
       );
     });
     
     this.setState({
       mappedRunners: mappedRunners
+    })
+  }
+
+  addTime = async () => {
+    const { id } = this.props.user;
+    const user_id = id;
+    const { start_time, end_time } = this.state;
+    let moment_start_time = moment.utc(start_time, "hh:mm:ss");
+    let moment_end_time = moment.utc(end_time, 'hh:mm:ss');
+    if (moment_start_time >= moment_end_time) {
+      alert("Start time must be before end time.");
+      return;
+    }
+    let total_time = moment_end_time.diff(moment_start_time, 'seconds')
+    total_time = moment("1900-01-01 00:00:00").add(total_time, 'seconds').format("HH:mm:ss");
+    await axios
+      .post('/api/add_time', { user_id, start_time, end_time, total_time })
+      .then(res => {
+        alert(res.data)
+      })
+      .catch(err => console.log(err));
+    this.setState({
+      start_time: "00:00:00",
+      end_time: "00:00:00"
     })
   }
 
@@ -96,35 +135,72 @@ class RaceResults extends React.Component {
               </div>
             }
           </div>
-          <div className="search-container">
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                this.searchRunnersOrderLast();
-              }}>
-              <h1>Search Runners:</h1>
-              <div>
-                <h1>First Name:</h1>
-                <input 
-                  name='first_name'
-                  type='text'
-                  value={this.state.first_name}
-                  onChange={e => this.changeHandler(e.target.name, e.target.value)}/>
-                <h1>Last Name:</h1>
-                <input 
-                  name='last_name'
-                  type='text'
-                  value={this.state.last_name}
-                  onChange={e => this.changeHandler(e.target.name, e.target.value)}/>
-                <button>Search</button>
-              </div>
-            </form>
+          <div>
+            <div className="search-container">
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.searchRunnersOrderLast();
+                }}>
+                <h1 className="results-title">Search Runners:</h1>
+                <div className="search-box">
+                  <h1 className="search-title">First Name:</h1>
+                  <input
+                    className="search-input"
+                    name='first_name'
+                    type='text'
+                    value={this.state.first_name}
+                    onChange={e => this.changeHandler(e.target.name, e.target.value)}/>
+                  <h1 className="search-title">Last Name:</h1>
+                  <input
+                    className="search-input"
+                    name='last_name'
+                    type='text'
+                    value={this.state.last_name}
+                    onChange={e => this.changeHandler(e.target.name, e.target.value)}/>
+                  <button className="search-button">Search</button>
+                </div>
+              </form>
+            </div>
+            <div className="time-container">
+              {
+                this.props.user
+                ?
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    this.addTime();
+                  }}>
+                  <h1 className="results-title">Add Time:</h1>
+                  <h1 className="search-title">Start Time:</h1>
+                  <input
+                    className="search-input"
+                    type="time"
+                    step="1"
+                    name='start_time'
+                    value={this.state.start_time}
+                    onChange={e => this.changeHandler(e.target.name, e.target.value)} />
+                  <h1 className="search-title">End Time:</h1>
+                  <input
+                    className="search-input"
+                    type="time"
+                    step="1"
+                    name='end_time'
+                    value={this.state.end_time}
+                    onChange={e => this.changeHandler(e.target.name, e.target.value)}/>
+                  <button className="search-button">Submit</button>
+                </form>
+                :
+                <h1 className="login-time-message">Log in to add time.</h1>
+              }
+            </div>
           </div>
           <div className="search-results">
+            <h1 className="results-title">Search Results:</h1>
             {
               this.state.mappedRunners.length
               ?
-              <div>
+              <div className="search-box">
                 {this.state.mappedRunners}
               </div>
               :

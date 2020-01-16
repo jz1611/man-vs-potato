@@ -25,16 +25,119 @@
 }
 
 .bulk-results {
-  width: 300px;
+  width: 250px;
   /* background-color: blue; */
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.562) 0px 3px 10px;
 }
 
 .search-container {
-  width: 300px;
+  width: 250px;
   /* background-color: red; */
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.562) 0px 3px 10px;
+}
+
+.time-container {
+  margin-top: 25px;
+  width: 250px;
+  /* background-color: red; */
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.562) 0px 3px 10px;
 }
 
 .search-results {
-  width: 300px;
+  width: 225px;
   /* background-color: green; */
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.562) 0px 3px 10px;
+}
+
+.search-title {
+  align-self: flex-start;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.search-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  align-self: flex-start;
+  height: 25px;
+  width: calc(100% - 15px);
+  padding: 5px;
+  background-color: rgb(235, 235, 235);
+  font-size: 18px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  border: rgb(235, 235, 235) 1px solid;
+}
+
+.search-input:focus {
+  outline: none;
+  border: rgb(77, 194, 248) 1px solid;
+}
+
+.search-button {
+  width: 200px;
+  border: rgb(77, 194, 248) 3px solid;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: rgba(99, 99, 99, 0.671) 0px 1px 2px;
+  text-shadow: none;
+  font-family: inherit;
+  background-color: white;
+  text-decoration: none;
+  color: rgb(77, 194, 248);
+  font-size: 32px;
+  font-weight: 700;
+  transition:color .3s ease-in, background-color .3s ease-in, border-color .3s ease-in;
+}
+
+.search-button:hover {
+  background-color: rgb(77, 194, 248);
+  color: rgb(255, 207, 75);
+  cursor: pointer;
+}
+
+.search-result {
+  width: 200px;
+  height: 125px;
+}
+
+.result-name {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: rgb(77, 194, 248)
+}
+
+.result-info {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.result-time {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(255, 207, 75);
+}
+
+.login-time-message {
+  font-size: 24px;
+}
+
+.time-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
