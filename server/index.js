@@ -7,6 +7,8 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
 const { getUser, updateUser, updatePassword, deleteUser } = require('./controllers/profileController');
 const { getBulkResults, searchRunnersOrderByLastName, addTime } = require('./controllers/resultsController');
+const { getAllItems, addItemToCart, removeItemFromCart } = require('./controllers/shopController');
+
 const app = express();
 
 app.use(express.json());
@@ -42,5 +44,10 @@ app.delete('/api/delete_user', deleteUser);
 app.get('/api/bulk_results', getBulkResults);
 app.get('/api/search_runners_order_last', searchRunnersOrderByLastName)
 app.post('/api/add_time', addTime);
+
+// Shop
+app.get('/api/get_items', getAllItems);
+app.post('/api/add_to_cart', addItemToCart);
+app.delete('/api/remove_from_cart/:item_id', removeItemFromCart);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
