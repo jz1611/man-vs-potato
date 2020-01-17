@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/reducer';
+import Loading from '../Loading/Loading';
 
 // CSS
 import './Login.css';
@@ -12,19 +13,26 @@ class Login extends React.Component {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      loading: false
     }
 
     this.changeHandler = this.changeHandler.bind(this);
   }
 
   login = async () => {
+    this.setState({
+      loading: true
+    })
     let { username, password } = this.state;
     const user = await axios.post('/api/login', { username, password }).catch(err => alert(err.response.data));
     if(user) {
       this.props.setUser(user.data);
       this.props.history.push('/profile');
     }
+    this.setState({
+      loading: false
+    })
   }
 
   changeHandler(key, value) {
@@ -35,6 +43,8 @@ class Login extends React.Component {
 
   render() {
     return (
+      !this.state.loading
+      ?
       <div className="login">
         <h1 className="page-title">Login</h1>
         <form
@@ -65,6 +75,10 @@ class Login extends React.Component {
             className="login-submit"
           >Login</button>
         </form>
+      </div>
+      :
+      <div className="results-loading">
+        <Loading type={'bubbles'} color={'rgb(77, 194, 248)'} height={250} width={350}/>
       </div>
     )
   }

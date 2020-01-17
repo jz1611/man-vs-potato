@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/reducer';
+import Loading from '../Loading/Loading';
 
 // CSS
 import './Register.css';
@@ -18,23 +19,33 @@ class Register extends React.Component {
       newDOB: null,
       newGender: "",
       newPassword: "",
-      newConfirmPass: ""
+      newConfirmPass: "",
+      loading: false
     }
 
     this.changeHandler = this.changeHandler.bind(this);
   }
 
   register = async () => {
+    this.setState({
+      loading: true
+    });
     let {newFirst, newLast, newUsername, newEmail, newDOB, newGender, newPassword, newConfirmPass} = this.state;
     if (newPassword !== newConfirmPass) {
-      alert('Passwords do not match.');
-    } else {
-      const user = await axios.post('/api/register', { newFirst, newLast, newUsername, newEmail, newDOB, newGender, newPassword }).catch(err => alert(err.response.data));
-      
-      if(user) {
-        this.props.setUser(user.data)
-        this.props.history.push('/profile');
-      }
+        this.setState({
+          loading: false
+        });
+        alert('Passwords do not match.');
+      } else {
+        const user = await axios.post('/api/register', { newFirst, newLast, newUsername, newEmail, newDOB, newGender, newPassword }).catch(err => alert(err.response.data));
+        
+        if(user) {
+          this.props.setUser(user.data)
+          this.props.history.push('/profile');
+        }
+        this.setState({
+          loading: false
+        });
     }
   }
 
@@ -46,6 +57,8 @@ class Register extends React.Component {
 
   render() {
     return (
+      !this.state.loading
+      ?
       <div className="register">
         <h1 className="page-title">Registration</h1>
         <form
@@ -60,6 +73,7 @@ class Register extends React.Component {
               type="text"
               required
               name="newFirst"
+              value={this.state.newFirst}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             />
           </div>
@@ -69,6 +83,7 @@ class Register extends React.Component {
               type="text"
               required
               name="newLast"
+              value={this.state.newLast}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             />
           </div>
@@ -78,6 +93,7 @@ class Register extends React.Component {
               type="text"
               required
               name="newUsername"
+              value={this.state.newUsername}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             />
           </div>
@@ -87,6 +103,7 @@ class Register extends React.Component {
               type="text"
               required
               name="newEmail"
+              value={this.state.newEmail}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             />
           </div>
@@ -96,6 +113,7 @@ class Register extends React.Component {
               type="date"
               required
               name="newDOB"
+              value={this.state.newDOB}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             />
           </div>
@@ -105,6 +123,7 @@ class Register extends React.Component {
               type="text"
               required
               name="newGender"
+              value={this.state.newGender}
               onChange={e => this.changeHandler(e.target.name, e.target.value)}
             >
               <option value="" hidden></option>
@@ -135,6 +154,10 @@ class Register extends React.Component {
             className="register-submit"
           >Submit</button>
         </form>
+      </div>
+      :
+      <div className="results-loading">
+        <Loading type={'bubbles'} color={'rgb(77, 194, 248)'} height={250} width={350}/>
       </div>
     )
   }

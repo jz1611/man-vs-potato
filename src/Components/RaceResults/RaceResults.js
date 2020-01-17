@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import Loading from '../Loading/Loading';
 
 // CSS
 import './RaceResults.css';
@@ -11,6 +12,8 @@ class RaceResults extends React.Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
+      loading_search: false,
       totalRunners: 0,
       totalTimes: 0,
       topMale: {},
@@ -39,11 +42,15 @@ class RaceResults extends React.Component {
       totalRunners: results.data[0],
       totalTimes: results.data[1],
       topMale: results.data[2],
-      topFemale: results.data[3]
+      topFemale: results.data[3],
+      loading: false
     });
   }
 
   searchRunnersOrderLast = async () => {
+    this.setState({
+      loading_search: true
+    });
     const { first_name, last_name } = this.state;
     const foundRunners = await axios.get(`/api/search_runners_order_last?first_name=${first_name}&last_name=${last_name}`).catch(err => console.log(err));
     const mappedRunners = foundRunners.data.map(runner => {
@@ -69,7 +76,8 @@ class RaceResults extends React.Component {
     });
     
     this.setState({
-      mappedRunners: mappedRunners
+      mappedRunners: mappedRunners,
+      loading_search: false
     })
   }
 
@@ -99,6 +107,12 @@ class RaceResults extends React.Component {
 
   render() {
     return (
+      this.state.loading
+      ?
+      <div className="results-loading">
+        <Loading type={'bubbles'} color={'rgb(77, 194, 248)'} height={250} width={350}/>
+      </div>
+      :
       <div className="results-page">
         <div className="results-container">
           <div className="bulk-results">
@@ -198,6 +212,9 @@ class RaceResults extends React.Component {
           <div className="search-results">
             <h1 className="results-title">Search Results:</h1>
             {
+              !this.state.loading_search
+              ?
+              (
               this.state.mappedRunners.length
               ?
               <div className="search-box">
@@ -205,6 +222,9 @@ class RaceResults extends React.Component {
               </div>
               :
               <h1>Please edit your search.</h1>
+              )
+              :
+              <Loading type={'bubbles'} color={'rgb(77, 194, 248)'} height={75} width={150}/>
             }
           </div>
         </div>

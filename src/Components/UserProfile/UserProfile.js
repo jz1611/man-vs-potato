@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/reducer';
+import Loading from '../Loading/Loading';
 
 // CSS
 import './UserProfile.css';
@@ -23,7 +24,8 @@ class UserProfile extends React.Component {
       password: "",
       confirmPassword: "",
       oldPassword: "",
-      deletingUser: false
+      deletingUser: false,
+      loading: true
     }
   }
 
@@ -54,7 +56,8 @@ class UserProfile extends React.Component {
       email: user.data[0].email,
       birthday: formattedDate,
       gender: user.data[0].gender,
-      id: user.data[0].user_id
+      id: user.data[0].user_id,
+      loading: false
     })
   }
 
@@ -99,29 +102,39 @@ class UserProfile extends React.Component {
   }
 
   updateProfile = async () => {
+    this.setState({
+      loading: true
+    })
     const { username, firstName, lastName, email, birthday, gender } = this.state;
     await axios
       .put('/api/update_user', {username, firstName, lastName, email, birthday, gender})
       .catch(err => alert(err.response.data));
     this.setState({
-      editingProfile: false
+      editingProfile: false,
+      loading: false
     })
   }
 
   updatePassword = async () => {
+    this.setState({
+      loading: true
+    })
     const { password, confirmPassword, oldPassword } = this.state;
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
     } else {
       await axios
-        .put('/api/update_password', { password, oldPassword })
-        .then(res => {
-          if (res.status === 200) {
-            this.editPassword();
-          }
-        })
-        .catch(err => alert(err.response.data));
+      .put('/api/update_password', { password, oldPassword })
+      .then(res => {
+        if (res.status === 200) {
+          this.editPassword();
+        }
+      })
+      .catch(err => alert(err.response.data));
     }
+    this.setState({
+      loading: false
+    })
   }
 
   deleteUser = async () => {
@@ -135,6 +148,8 @@ class UserProfile extends React.Component {
 
   render() {
     return (
+      !this.state.loading
+      ?
       <div className="profile">
         {
           this.props.user
@@ -319,6 +334,10 @@ class UserProfile extends React.Component {
             <h2 className="page-title">Please log in or register.</h2>
           </div>
         }
+      </div>
+      :
+      <div className="results-loading">
+        <Loading type={'bubbles'} color={'rgb(77, 194, 248)'} height={250} width={350}/>
       </div>
     )
   }
