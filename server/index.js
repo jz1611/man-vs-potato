@@ -51,4 +51,9 @@ app.post('/api/add_time', addTime);
 app.get('/api/get_items', getAllItems);
 // app.post('/api/add_to_cart', addItemToCart);
 
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
+
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
