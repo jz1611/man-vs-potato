@@ -7,7 +7,7 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
 const { getUser, updateUser, updatePassword, deleteUser } = require('./controllers/profileController');
 const { getBulkResults, searchRunnersOrderByLastName, addTime } = require('./controllers/resultsController');
-const { getAllItems, addItemToCart, removeItemFromCart } = require('./controllers/shopController');
+const { getAllItems } = require('./controllers/shopController');
 
 const app = express();
 
@@ -22,6 +22,8 @@ app.use(session({
   }
 }));
 // app.use(checkForSession);
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 massive(CONNECTION_STRING).then(db => {
   console.log('Connected to database.');
@@ -47,7 +49,6 @@ app.post('/api/add_time', addTime);
 
 // Shop
 app.get('/api/get_items', getAllItems);
-app.post('/api/add_to_cart', addItemToCart);
-app.delete('/api/remove_from_cart/:item_id', removeItemFromCart);
+// app.post('/api/add_to_cart', addItemToCart);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on port ${SERVER_PORT}...`));
