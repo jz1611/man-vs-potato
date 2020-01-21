@@ -8,6 +8,7 @@ import Login from './Components/Login/Login';
 import UserProfile from './Components/UserProfile/UserProfile';
 import RaceResults from './Components/RaceResults/RaceResults';
 import Shop from './Components/Shop/Shop';
+import Cart from './Components/Cart/Cart';
 
 // CSS
 import './App.css';
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/results" component={RaceResults} />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
       {/* <div className="acknowledge">
         <div className="author">Website by Jeff Zivkovic</div>

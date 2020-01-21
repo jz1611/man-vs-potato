@@ -1,5 +1,6 @@
 // Dependencies
 import React from 'react';
+import { TiShoppingCart } from 'react-icons/ti';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/reducer';
@@ -39,6 +40,11 @@ class Header extends React.Component {
               className='link'
               activeClassName='active-link'>Shop</NavLink>
           </nav>
+          <NavLink
+            className="cart"
+            exact to="/cart" >
+            <div><TiShoppingCart /></div>
+            <h1>{this.props.cart.length}</h1></NavLink>
           {
             !this.props.user
             ?

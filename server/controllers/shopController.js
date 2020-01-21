@@ -5,6 +5,13 @@ module.exports = {
     res.status(200).send(items);
   }
 
+  // getItem: async (req, res, next) => {
+  //   const db = req.app.get('db');
+  //   const {item_id} = req.params;
+  //   const item = await db.get_item(item_id);
+  //   res.status(200).send(item[0]);
+  // }
+
   // addItemToCart: async (req, res, next) => {
   //   let item_already_in_cart = false;
   //   const { item_id, quantity } = req.body;

@@ -7,7 +7,7 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
 const { getUser, updateUser, updatePassword, deleteUser } = require('./controllers/profileController');
 const { getBulkResults, searchRunnersOrderByLastName, addTime } = require('./controllers/resultsController');
-const { getAllItems } = require('./controllers/shopController');
+const { getAllItems /*, getItem */} = require('./controllers/shopController');
 
 const app = express();
 
@@ -49,7 +49,7 @@ app.post('/api/add_time', addTime);
 
 // Shop
 app.get('/api/get_items', getAllItems);
-// app.post('/api/add_to_cart', addItemToCart);
+// app.get('/api/get_item/:item_id', getItem);
 
 const path = require('path')
 app.get('*', (req, res)=>{

@@ -43,9 +43,9 @@ export function logoutUser() {
   }
 }
 
-export function addToCart(item_id, quantity) {
+export function addToCart(item, quantity) {
   return {
-    payload: {item_id, quantity},
+    payload: {item, quantity},
     type: ADD_TO_CART
   }
 }

@@ -1,0 +1,1 @@
+SELECT * FROM shop WHERE item_id = $1;
