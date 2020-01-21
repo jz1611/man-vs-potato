@@ -244,6 +244,7 @@ class UserProfile extends React.Component {
                       <input 
                         type="password"
                         name="password"
+                        required
                         onChange={e => this.changeHandler(e.target.name, e.target.value)} />
                     </div>
                     <div className="profile-item">
@@ -251,6 +252,7 @@ class UserProfile extends React.Component {
                       <input 
                         type="password"
                         name="confirmPassword"
+                        required
                         onChange={e => this.changeHandler(e.target.name, e.target.value)} />
                     </div>
                     <div className="profile-item old-password">
@@ -258,6 +260,7 @@ class UserProfile extends React.Component {
                       <input 
                         type="password"
                         name="oldPassword"
+                        required
                         onChange={e => this.changeHandler(e.target.name, e.target.value)} />
                     </div>
                   </div>

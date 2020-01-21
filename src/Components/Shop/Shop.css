@@ -1,0 +1,61 @@
+.shop {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.item-grid {
+  width: 1000px;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 250px 250px 250px;
+  grid-template-rows: 300px;
+  column-gap: 125px;
+  row-gap: 125px;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.562) 0px 3px 10px;
+}
+
+.item-container h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.item-container h2 {
+  font-size: 24px;
+  margin: 5px 0;
+}
+
+.shop-image {
+  height: 100px;
+}
+
+.cart-button {
+  margin-top: 15px;
+  font-family: 'Kulim Park', sans-serif;
+  color: rgb(77, 194, 248);
+  font-size: 32px;
+  font-weight: 700;
+  border: rgb(77, 194, 248) 3px solid;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.671) 0px 1px 2px;
+  transition:color .3s ease-in, background-color .3s ease-in, border-color .3s ease-in;
+}
+
+.cart-button:hover {
+  background-color: rgb(77, 194, 248);
+  color: rgb(255, 207, 75);
+  cursor: pointer;
+}

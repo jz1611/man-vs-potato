@@ -2,7 +2,7 @@ module.exports = {
   getAllItems: async (req, res, next) => {
     const db = req.app.get('db');
     const items = await db.get_all_items();
-    res.status(200).send(items)
+    res.status(200).send(items);
   }
 
   // addItemToCart: async (req, res, next) => {
