@@ -8,6 +8,7 @@
 .banner {
   width: 100vw;
   max-width: 100%;
+  min-width: 1000px;
   height: 450px;
   background-color: khaki;
   background-image: url(./background.jpg);
