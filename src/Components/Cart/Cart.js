@@ -3,6 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import Loading from '../Loading/Loading';
 
+// Stripe Integratioin
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CheckoutForm from '../CheckoutForm/CheckoutForm'
+
 // CSS
 import './Cart.css';
 
@@ -59,8 +63,15 @@ class Cart extends React.Component {
             </div>
             <div className="cart-summary">
               <h1 className="total">Total: ${this.state.total}</h1>
-              <button className="purchase-button">Purchase</button>
             </div>
+            <StripeProvider apiKey="pk_test_vqyhulipkB1xHeRjuPlcHE6r00yZJ1zR6p">
+              <div>
+                <h1>Checkout:</h1>
+                <Elements>
+                  <CheckoutForm price={this.state.total}/>
+                </Elements>
+              </div>
+            </StripeProvider>
           </div>
           :
           <h1 className="page-title">The cart is empty!</h1>

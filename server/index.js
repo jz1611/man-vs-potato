@@ -3,6 +3,9 @@ const massive = require('massive');
 const express = require('express');
 const session = require('express-session');
 const checkForSession = require('./middlewares/checkForSession');
+
+const stripe = require('stripe')('sk_test_EOSlctXV4BIbyyxnzQGQCl9S00crQfwcte');
+
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const { register, login, logout, getUserSession } = require('./controllers/authController');
 const { getUser, updateUser, updatePassword, deleteUser } = require('./controllers/profileController');
@@ -10,6 +13,8 @@ const { getBulkResults, searchRunnersOrderByLastName, addTime } = require('./con
 const { getAllItems /*, getItem */} = require('./controllers/shopController');
 
 const app = express();
+
+app.use(require('body-parser').text());
 
 app.use(express.json());
 
@@ -50,6 +55,23 @@ app.post('/api/add_time', addTime);
 // Shop
 app.get('/api/get_items', getAllItems);
 // app.get('/api/get_item/:item_id', getItem);
+
+// Stripe
+app.post('/api/charge', async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example harge",
+      source: req.body
+    });
+
+    res.json({status});
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+});
 
 const path = require('path')
 app.get('*', (req, res)=>{
